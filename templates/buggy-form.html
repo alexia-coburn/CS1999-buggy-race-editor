@@ -4,9 +4,38 @@
 
   <h1>Make buggy</h1>
 
+  <p>
+    {{ msg }}
+  </p>
+
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
     <input type="text" name="qty_wheels" />
+
+    <br>
+
+    <label for="flag_color">Flag colour:</label>
+    <input type="text" name="flag_color" />
+
+    <br>
+
+    <label for="flag_color_secondary">Secondary flag colour:</label>
+    <input type="text" name="flag_color_secondary" />
+
+    <br>
+
+    <label for="flag_pattern">Choose a flag pattern:</label>
+    <select id="flag_pattern" name="flag_pattern">
+      <option value="plain">plain</option>
+      <option value="vstripe">vstripe</option>
+      <option value="hstripe">hstripe</option>
+      <option value="dstripe">dstripe</option>
+      <option value="checker">checker</option>
+      <option value="spot">spot</option>
+    </select>
+
+    <br>
+
     <input type="submit" class="button">
   </form>
 

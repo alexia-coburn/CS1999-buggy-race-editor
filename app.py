@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Constants - Stuff that we need to know that won't ever change!
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
-BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
+BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
 #------------------------------------------------------------
 # the index page
@@ -28,12 +28,18 @@ def create_buggy():
     elif request.method == 'POST':
         msg=""
         qty_wheels = request.form['qty_wheels']
+        if not qty_wheels.isdigit():
+            msg = f"Error: {qty_wheels} is not a number"
+            return render_template('buggy-form.html', msg = msg)
+        flag_color = request.form['flag_color']
+        flag_color_secondary = request.form['flag_color_secondary']
+        flag_pattern = request.form['flag_pattern']
         try:
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE buggies set qty_wheels=? WHERE id=?",
-                    (qty_wheels, DEFAULT_BUGGY_ID)
+                    "UPDATE buggies SET qty_wheels=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
+                    (qty_wheels, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
                 )
                 con.commit()
                 msg = "Record successfully saved"
@@ -53,7 +59,7 @@ def show_buggies():
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
-    record = cur.fetchone(); 
+    record = cur.fetchone();
     return render_template("buggy.html", buggy = record)
 
 #------------------------------------------------------------
@@ -80,7 +86,7 @@ def summary():
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies WHERE id=? LIMIT 1", (DEFAULT_BUGGY_ID))
 
-    buggies = dict(zip([column[0] for column in cur.description], cur.fetchone())).items() 
+    buggies = dict(zip([column[0] for column in cur.description], cur.fetchone())).items()
     return jsonify({ key: val for key, val in buggies if (val != "" and val is not None) })
 
 # You shouldn't need to add anything below this!
