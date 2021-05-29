@@ -1,25 +1,25 @@
 html{
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
 body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
   font-size: 1.2em;
-  color: #000000;
+  color: #ffffff;
   background: repeating-linear-gradient(
     45deg,
-    #ffffee,
-    #ffffee 2em,
-    #eeeeee 2em,
-    #eeeeee 4em
+    #a3fff7,
+    #8afff5 2em,
+    #cccccc 2em,
+    #aaaaaa 4em
   );
 }
 .main-content {
   min-height: 100vh;
   padding: 1em;
-  background: #ffffff;
+  background: #454545;
   margin: 0 0 0 3em;
 }
 h1 {
@@ -29,25 +29,41 @@ p {
   margin: 1em 0;
 }
 a.button, input.button {
-  border: 1px solid #000000;
+  border: 1px solid #262626;
   padding: 0.5em;
   margin: 0.5em;
   border-radius: 0.25em;
   text-decoration: none;
-  background-color: #ffffff;
-  color: #000000;
-  box-shadow: 5px 5px 5px #999999;
+  background-color: #303030;
+  color: #ffffff;
+  box-shadow: 5px 5px 5px #101010;
 }
 a.button:hover {
   background-color: #000000;
   color: #ffffff;
 }
+a:link {
+  color: #47eddf
+}
+a:visited {
+  color: #47eddf
+}
 input {
   padding: 0.5em;
   font-size: 100%;
+  background-color: 787878;
+  color: #ffffff;
 }
 input.button {
-  background-color: #99ff99;
+  background-color: #00c7b6;
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-style: inset;
+  background-color: #787878;
+  color: #ffffff;
 }
 table {
   border: 1px solid #000000;
