@@ -10,20 +10,21 @@
 
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
-    <input type="text" name="qty_wheels" />
+    <input type="text" name="qty_wheels" value="{{ buggy['qty_wheels'] }}" />
 
     <br>
 
     <label for="flag_color">Flag colour:</label>
-    <input type="text" name="flag_color" />
+    <input type="text" name="flag_color" value="{{ buggy['flag_color'] }}"/>
 
     <br>
 
     <label for="flag_color_secondary">Secondary flag colour:</label>
-    <input type="text" name="flag_color_secondary" />
+    <input type="text" name="flag_color_secondary" value="{{ buggy['flag_color_secondary'] }}" />
 
     <br>
 
+    <!-- FIX ME : 2-EDIT, get form to remember current selection -->
     <label for="flag_pattern">Choose a flag pattern:</label>
     <select id="flag_pattern" name="flag_pattern">
       <option value="plain">plain</option>
