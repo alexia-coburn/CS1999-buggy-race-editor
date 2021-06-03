@@ -36,7 +36,11 @@ def create_buggy():
         if not qty_wheels.isdigit():
             msg = f"Error: {qty_wheels} is not a number"
             return render_template('buggy-form.html', msg = msg)
+        if int(qty_wheels) % 2 != 0:
+            msg = f"Error: {qty_wheels} is not an even number"
+            return render_template('buggy-form.html', msg = msg)
         power_type = request.form['power_type']
+        power_units = request.form['power_units']
         flag_color = request.form['flag_color']
         flag_color_secondary = request.form['flag_color_secondary']
         flag_pattern = request.form['flag_pattern']
@@ -44,8 +48,8 @@ def create_buggy():
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE buggies SET qty_wheels=?, power_type=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
-                    (qty_wheels, power_type, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
+                    "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
+                    (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
                 )
                 con.commit()
                 msg = "Record successfully saved"

@@ -45,6 +45,7 @@ rows = cursor.fetchall()
 if len(rows) == 0:
   cursor.execute("INSERT INTO buggies (qty_wheels) VALUES (4)")
   cursor.execute("INSERT INTO buggies (power_type) VALUES ('petrol')")
+  cursor.execute("INSERT INTO buggies (power_units) VALUES (1)")
   connection.commit()
   print("- Added one 4-wheeled buggy")
 else:
