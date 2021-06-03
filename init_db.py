@@ -28,7 +28,10 @@ connection.execute("""
     qty_wheels            INTEGER DEFAULT 4,
     flag_color            VARCHAR(20),
     flag_color_secondary  VARCHAR(20),
-    flag_pattern          VARCHAR(20)
+    flag_pattern          VARCHAR(20),
+    power_type            VARCHAR(20),
+    power_units           INTEGER,
+    total_cost            INTEGER
   )
 
 """)
@@ -41,6 +44,7 @@ cursor.execute("SELECT * FROM buggies LIMIT 1")
 rows = cursor.fetchall()
 if len(rows) == 0:
   cursor.execute("INSERT INTO buggies (qty_wheels) VALUES (4)")
+  cursor.execute("INSERT INTO buggies (power_type) VALUES ('petrol')")
   connection.commit()
   print("- Added one 4-wheeled buggy")
 else:
