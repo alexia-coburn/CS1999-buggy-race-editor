@@ -10,29 +10,32 @@
 
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
+    <p>Enter the number of wheels you would like your buggy to have</p>
     <input type="text" name="qty_wheels" value="{{ buggy['qty_wheels'] }}" />
 
-    <br>
+    <br><br>
 
     <label for="flag_color">Flag colour:</label>
-    <input type="text" name="flag_color" value="{{ buggy['flag_color'] }}"/>
+    <p>Choose a primary colour for your flag</p>
+    <input type="color" name="flag_color" value="{{ buggy['flag_color'] }}"/>
 
-    <br>
+    <br><br>
 
     <label for="flag_color_secondary">Secondary flag colour:</label>
-    <input type="text" name="flag_color_secondary" value="{{ buggy['flag_color_secondary'] }}" />
+    <p>Choose a secondary colour for your flag</p>
+    <input type="color" name="flag_color_secondary" value="{{ buggy['flag_color_secondary'] }}" />
 
-    <br>
+    <br><br>
 
     <!-- FIX ME : 2-EDIT, get form to remember current selection -->
     <label for="flag_pattern">Choose a flag pattern:</label>
     <select id="flag_pattern" name="flag_pattern">
-      <option value="plain">plain</option>
-      <option value="vstripe">vstripe</option>
-      <option value="hstripe">hstripe</option>
-      <option value="dstripe">dstripe</option>
-      <option value="checker">checker</option>
-      <option value="spot">spot</option>
+      <option {% if buggy['flag_pattern'] == "plain" %} selected {% endif %} value="plain">plain</option>
+      <option {% if buggy['flag_pattern'] == "vstripe" %} selected {% endif %} value="vstripe">vstripe</option>
+      <option {% if buggy['flag_pattern'] == "hstripe" %} selected {% endif %} value="hstripe">hstripe</option>
+      <option {% if buggy['flag_pattern'] == "dstripe" %} selected {% endif %} value="dstripe">dstripe</option>
+      <option {% if buggy['flag_pattern'] == "checker" %} selected {% endif %} value="checker">checker</option>
+      <option {% if buggy['flag_pattern'] == "spot" %} selected {% endif %} value="spot">spot</option>
     </select>
 
     <br>
