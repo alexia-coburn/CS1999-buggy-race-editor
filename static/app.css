@@ -18,7 +18,7 @@ body {
 }
 .main-content {
   min-height: 100vh;
-  padding: 1em;
+  padding: 1.2em;
   background: #454545;
   margin: 0 0 0 3em;
 }
@@ -27,7 +27,7 @@ h1 {
 }
 p {
   margin: 1em 0;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 a.button, input.button {
   border: 1px solid #262626;
