@@ -48,8 +48,10 @@ def create_buggy():
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
-                    (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
+                    # "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
+                    # (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
+                    "INSERT INTO buggies (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern) VALUES (?, ?, ?, ?, ?, ?)",
+                    (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern)
                 )
                 con.commit()
                 msg = "Record successfully saved"
