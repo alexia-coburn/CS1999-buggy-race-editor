@@ -23,22 +23,22 @@ def home():
 #------------------------------------------------------------
 @app.route('/new', methods = ['POST', 'GET'])
 def create_buggy():
+    con = sql.connect(DATABASE_FILE)
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM buggies")
+    record = cur.fetchone();
     if request.method == 'GET':
-        con = sql.connect(DATABASE_FILE)
-        con.row_factory = sql.Row
-        cur = con.cursor()
-        cur.execute("SELECT * FROM buggies")
-        record = cur.fetchone();
         return render_template("buggy-form.html", buggy = record)
     elif request.method == 'POST':
         msg=""
         qty_wheels = request.form['qty_wheels']
         if not qty_wheels.isdigit():
             msg = f"Error: {qty_wheels} is not a number"
-            return render_template('buggy-form.html', msg = msg)
+            return render_template('buggy-form.html', buggy = record, msg = msg)
         if int(qty_wheels) % 2 != 0:
             msg = f"Error: {qty_wheels} is not an even number"
-            return render_template('buggy-form.html', msg = msg)
+            return render_template('buggy-form.html', buggy = record, msg = msg)
         power_type = request.form['power_type']
         power_units = request.form['power_units']
         flag_color = request.form['flag_color']
