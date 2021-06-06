@@ -9,6 +9,11 @@
   </p>
 
   <form action="/new" method="post">
+    <label for="id">ID:</label>
+    <input type="text" name="id" value="{{ buggy['id'] }}"
+
+    <br><br>
+
     <label for="qty_wheels">Number of wheels:</label>
     <p>Enter the number of wheels you would like your buggy to have</p>
     <input type="text" name="qty_wheels" value="{{ buggy['qty_wheels'] }}" />

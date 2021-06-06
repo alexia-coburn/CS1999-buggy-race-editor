@@ -2,34 +2,36 @@
 
 {% block content %}
 
-  <h1>Buggy</h1>
+  <h1>My Buggies</h1>
 
-  <table>
-    <tr>
-      <td>ID:</td> <td> {{ buggy['id'] }} </td>
-    </tr>
-    <tr>
-      <td>Wheels:</td> <td> {{ buggy['qty_wheels'] }} </td>
-    </tr>
-    <tr>
-      <td>Primary Power:</td> <td> {{ buggy['power_type'] }} </td>
-    </tr>
-    <tr>
-      <td>Primary Power Units:</td> <td> {{ buggy['power_units'] }} </td>
-    </tr>
-    <tr>
-      <td>Flag Colour:</td> <td> {{ buggy['flag_color'] }} </td>
-    </tr>
-    <tr>
-      <td>Secondary Flag Colour:</td> <td> {{ buggy['flag_color_secondary'] }} </td>
-    </tr>
-    <tr>
-      <td>Flag Pattern:</td> <td> {{ buggy['flag_pattern'] }} </td>
-    </tr>
-    <tr>
-      <td colspan="2"> <a href="/edit/{{ buggy['qty_wheels'] }}">Edit</a> </td>
-    </tr>
-  </table>
+  {% for buggy in buggies %}
+    <table>
+      <tr>
+        <td>ID:</td> <td> {{ buggy['id'] }} </td>
+      </tr>
+      <tr>
+        <td>Wheels:</td> <td> {{ buggy['qty_wheels'] }} </td>
+      </tr>
+      <tr>
+        <td>Primary Power:</td> <td> {{ buggy['power_type'] }} </td>
+      </tr>
+      <tr>
+        <td>Primary Power Units:</td> <td> {{ buggy['power_units'] }} </td>
+      </tr>
+      <tr>
+        <td>Flag Colour:</td> <td> {{ buggy['flag_color'] }} </td>
+      </tr>
+      <tr>
+        <td>Secondary Flag Colour:</td> <td> {{ buggy['flag_color_secondary'] }} </td>
+      </tr>
+      <tr>
+        <td>Flag Pattern:</td> <td> {{ buggy['flag_pattern'] }} </td>
+      </tr>
+      <tr>
+        <td colspan="2"> <a href="/edit/{{ buggy['qty_wheels'] }}">Edit</a> </td>
+      </tr>
+    </table>
+  {% endfor %}
 
   <p>
     <a href="/" class="button">home</a>

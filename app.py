@@ -44,15 +44,20 @@ def create_buggy():
         flag_color = request.form['flag_color']
         flag_color_secondary = request.form['flag_color_secondary']
         flag_pattern = request.form['flag_pattern']
+        buggy_id = request.form['id']
         try:
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
-                cur.execute(
-                    # "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
-                    # (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
-                    "INSERT INTO buggies (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern) VALUES (?, ?, ?, ?, ?, ?)",
-                    (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern)
-                )
+                if buggy_id:
+                    cur.execute(
+                        "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
+                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
+                    )
+                else:
+                    cur.execute(
+                        "INSERT INTO buggies (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern) VALUES (?, ?, ?, ?, ?, ?)",
+                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern)
+                    )
                 con.commit()
                 msg = "Record successfully saved"
         except:
@@ -71,16 +76,23 @@ def show_buggies():
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
-    record = cur.fetchone();
-    return render_template("buggy.html", buggy = record)
+    records = cur.fetchall();
+    return render_template("buggy.html", buggies = records)
 
 #------------------------------------------------------------
 # a placeholder page for editing the buggy: you'll need
 # to change this when you tackle task 2-EDIT
 #------------------------------------------------------------
-@app.route('/edit')
-def edit_buggy():
-    return render_template("buggy-form.html")
+@app.route('/edit/<buggy_id>')
+def edit_buggy(buggy_id):
+    print("TEST")
+    print(f"FIX ME - # {buggy_id}")
+    con = sql.connect(DATABASE_FILE)
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM buggies WHERE id=?", (buggy_id,))
+    record = cur.fetchone();
+    return render_template("buggy-form.html", buggy = record)
 
 #------------------------------------------------------------
 # You probably don't need to edit this... unless you want to ;)
