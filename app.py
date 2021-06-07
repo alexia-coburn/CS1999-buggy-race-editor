@@ -29,7 +29,7 @@ def create_buggy():
     cur.execute("SELECT * FROM buggies")
     record = cur.fetchone();
     if request.method == 'GET':
-        return render_template("buggy-form.html", buggy = record)
+        return render_template("buggy-form.html", buggy = None)
     elif request.method == 'POST':
         msg=""
         qty_wheels = request.form['qty_wheels']
@@ -51,7 +51,7 @@ def create_buggy():
                 if buggy_id:
                     cur.execute(
                         "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
-                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, DEFAULT_BUGGY_ID)
+                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, buggy_id)
                     )
                 else:
                     cur.execute(
