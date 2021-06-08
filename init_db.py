@@ -31,7 +31,8 @@ connection.execute("""
     flag_pattern          VARCHAR(20),
     power_type            VARCHAR(20),
     power_units           INTEGER,
-    total_cost            INTEGER
+    tyres                 VARCHAR(20),
+    qty_tyres             INTEGER
   )
 
 """)
@@ -46,6 +47,8 @@ if len(rows) == 0:
   cursor.execute("INSERT INTO buggies (qty_wheels) VALUES (4)")
   cursor.execute("INSERT INTO buggies (power_type) VALUES ('petrol')")
   cursor.execute("INSERT INTO buggies (power_units) VALUES (1)")
+  cursor.execute("INSERT INTO buggies (tyres) VALUES ('knobbly')")
+  cursor.execute("INSERT INTO buggies (qty_tyres) VALUES (4)")
   connection.commit()
   print("- Added one 4-wheeled buggy")
 else:

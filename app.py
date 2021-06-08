@@ -43,8 +43,8 @@ def power_cost_comparison(power_type, power_units):
     cost = (int(power_costs_dict[power_type]) * int(power_units))
     return cost
 
-def tyre_cost_comparison(qty_wheels, tyres):
-    cost = (int(tyre_costs_dict[type]) * int(qty_wheels))
+def tyre_cost_comparison(tyres, qty_tyres):
+    cost = (int(tyre_costs_dict[tyres]) * int(qty_tyres))
     return cost
 
 #------------------------------------------------------------
@@ -84,19 +84,22 @@ def create_buggy():
         flag_color_secondary = request.form['flag_color_secondary']
         flag_pattern = request.form['flag_pattern']
         buggy_id = request.form['id']
-        total_cost = power_cost
+        tyres = request.form['tyres']
+        qty_tyres = request.form['qty_wheels']
+        tyre_cost = tyre_cost_comparison(tyres, qty_tyres)
+        total_cost = power_cost + tyre_cost
         try:
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
                 if buggy_id:
                     cur.execute(
-                        "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=? WHERE id=?",
-                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, buggy_id)
+                        "UPDATE buggies SET qty_wheels=?, power_type=?, power_units=?, flag_color=?, 'flag_color_secondary'=?, 'flag_pattern'=?, 'tyres'=?, 'qty_tyres'=? WHERE id=?",
+                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, tyres, qty_tyres, buggy_id)
                     )
                 else:
                     cur.execute(
-                        "INSERT INTO buggies (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern) VALUES (?, ?, ?, ?, ?, ?)",
-                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern)
+                        "INSERT INTO buggies (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, tyres, qty_tyres) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern, tyres, qty_tyres)
                     )
                 con.commit()
                 msg = f"Record successfully saved. The cost of this buggy is {total_cost}."

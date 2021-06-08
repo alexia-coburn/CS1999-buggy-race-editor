@@ -13,11 +13,24 @@
   </p>
 
   <form action="/new" method="post">
-    <input type="hidden" name="id" value="{{ buggy['id'] }}"
+    <input type="hidden" name="id" value="{{ buggy['id'] }}">
 
     <label for="qty_wheels">Number of wheels:</label>
     <p>Enter the number of wheels you would like your buggy to have</p>
     <input type="text" name="qty_wheels" value="{{ buggy['qty_wheels'] }}" />
+
+    <br><br>
+
+    <label for="tyres">Type of tyres:</label>
+    <p>Select the type of tyre you would like on your wheels</p>
+    <select id="tyres" name="tyres">
+      <option {% if buggy['tyres'] == "knobbly" %} selected {% endif %} value="knobbly">Knobbly</option>
+      <option {% if buggy['tyres'] == "slick" %} selected {% endif %} value="slick">Slick</option>
+      <option {% if buggy['tyres'] == "steelband" %} selected {% endif %} value="steelband">Steelband</option>
+      <option {% if buggy['tyres'] == "reactive" %} selected {% endif %} value="reactive">Reactive</option>
+      <option {% if buggy['tyres'] == "maglev" %} selected {% endif %} value="maglev">Maglev</option>
+    </select>
+    <input type="hidden" name="qty_tyres" value = "{{ buggy['qty_wheels'] }}">
 
     <br><br>
 

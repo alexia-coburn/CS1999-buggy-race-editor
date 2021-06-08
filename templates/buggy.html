@@ -13,6 +13,9 @@
         <td>Wheels:</td> <td> {{ buggy['qty_wheels'] }} </td>
       </tr>
       <tr>
+        <td>Type of Tyre:</td> <td> {{ buggy['tyres'] }} </td>
+      </tr>
+      <tr>
         <td>Primary Power:</td> <td> {{ buggy['power_type'] }} </td>
       </tr>
       <tr>
@@ -29,7 +32,7 @@
       </tr>
       <tr class="no_border">
         <td> <form action="/edit/{{ buggy['id'] }}"> <input type="submit" class="button" value="Edit"> </form></td>
-        <td> <form "/delete/{{ buggy['id'] }}" method="post"> <input type="submit" class="button" value="Delete"> </form> </td>
+        <td> <form action="/delete/{{ buggy['id'] }}" method="post"> <input type="submit" class="button" value="Delete"> </form> </td>
       </tr>
     </table>
   {% endfor %}
