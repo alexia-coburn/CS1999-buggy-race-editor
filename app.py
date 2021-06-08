@@ -9,6 +9,44 @@ DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
+
+#------------------------------------------------------------
+# Reading the costs from the files
+#------------------------------------------------------------
+
+# Dictionaries for file contents
+power_costs_dict = {}
+tyre_costs_dict = {}
+
+# Power costs -------------------------
+power_file = 'costs/power.txt' # contents: <type> <cost>
+
+with open(power_file) as data_file:
+    lines = data_file.readlines()
+
+for line in lines:
+    type, cost = line.split()
+    power_costs_dict[type] = cost
+
+# Tyre costs --------------------------
+tyre_file = 'costs/tyre.txt' # contents <type> <cost>
+
+with open(tyre_file) as data_file:
+    lines = data_file.readlines()
+
+for line in lines:
+    type, cost = line.split()
+    tyre_costs_dict[type] = cost
+
+# Functions to calculate cost - clears up /new by being here
+def power_cost_comparison(power_type, power_units):
+    cost = (int(power_costs_dict[power_type]) * int(power_units))
+    return cost
+
+def tyre_cost_comparison(qty_wheels, tyres):
+    cost = (int(tyre_costs_dict[type]) * int(qty_wheels))
+    return cost
+
 #------------------------------------------------------------
 # the index page
 #------------------------------------------------------------
@@ -41,10 +79,12 @@ def create_buggy():
             return render_template('buggy-form.html', buggy = record, msg = msg)
         power_type = request.form['power_type']
         power_units = request.form['power_units']
+        power_cost = power_cost_comparison(power_type, power_units)
         flag_color = request.form['flag_color']
         flag_color_secondary = request.form['flag_color_secondary']
         flag_pattern = request.form['flag_pattern']
         buggy_id = request.form['id']
+        total_cost = power_cost
         try:
             with sql.connect(DATABASE_FILE) as con:
                 cur = con.cursor()
@@ -59,7 +99,7 @@ def create_buggy():
                         (qty_wheels, power_type, power_units, flag_color, flag_color_secondary, flag_pattern)
                     )
                 con.commit()
-                msg = "Record successfully saved"
+                msg = f"Record successfully saved. The cost of this buggy is {total_cost}."
         except:
             con.rollback()
             msg = "error in update operation"
