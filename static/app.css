@@ -85,3 +85,7 @@ table td, table th {
 .spacer {
   margin: 3em 0;
 }
+
+tr.no_border td {
+  border-color: #454545;
+}

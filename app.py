@@ -85,14 +85,40 @@ def show_buggies():
 #------------------------------------------------------------
 @app.route('/edit/<buggy_id>')
 def edit_buggy(buggy_id):
-    print("TEST")
-    print(f"FIX ME - # {buggy_id}")
     con = sql.connect(DATABASE_FILE)
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies WHERE id=?", (buggy_id,))
     record = cur.fetchone();
     return render_template("buggy-form.html", buggy = record)
+
+#------------------------------------------------------------
+# deleting a buggy
+# for task 3-del
+#------------------------------------------------------------
+@app.route('/delete/<buggy_id>', methods = ['GET', 'POST'])
+def delete_buggy(buggy_id):
+    con = sql.connect(DATABASE_FILE)
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    try:
+        with sql.connect(DATABASE_FILE) as con:
+            cur = con.cursor()
+            if buggy_id:
+                cur.execute(
+                    "DELETE FROM buggies WHERE id=?",
+                    (buggy_id)
+                )
+            else:
+                msg = "error: no buggy ID"
+            con.commit()
+            msg = "Buggy successfully deleted"
+    except:
+        con.rollback()
+        msg = "error in update operation"
+    finally:
+        con.close()
+    return render_template("updated.html", msg = msg)
 
 #------------------------------------------------------------
 # You probably don't need to edit this... unless you want to ;)

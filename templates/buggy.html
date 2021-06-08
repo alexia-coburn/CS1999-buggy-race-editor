@@ -27,8 +27,9 @@
       <tr>
         <td>Flag Pattern:</td> <td> {{ buggy['flag_pattern'] }} </td>
       </tr>
-      <tr>
-        <td colspan="2"> <a href="/edit/{{ buggy['id'] }}">Edit</a> </td>
+      <tr class="no_border">
+        <td> <form action="/edit/{{ buggy['id'] }}"> <input type="submit" class="button" value="Edit"> </form></td>
+        <td> <form "/delete/{{ buggy['id'] }}" method="post"> <input type="submit" class="button" value="Delete"> </form> </td>
       </tr>
     </table>
   {% endfor %}
