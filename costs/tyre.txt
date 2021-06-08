@@ -1,0 +1,5 @@
+knobbly 15
+slick 10
+steelband 20
+reactive 40
+maglev 50

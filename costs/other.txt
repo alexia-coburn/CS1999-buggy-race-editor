@@ -1,0 +1,5 @@
+hamster_booster 5
+fireproof 70
+insulated 100
+antibiotic 90
+banging 42

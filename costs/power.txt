@@ -1,0 +1,10 @@
+petrol 4
+fusion 400
+steam 3
+bio 5
+electric 20
+rocket 16
+hamster 3
+thermo 300
+solar 40
+wind 20

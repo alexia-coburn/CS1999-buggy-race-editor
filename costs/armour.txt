@@ -1,0 +1,6 @@
+none 0
+wood 40
+aluminium 200
+thinsteel 100
+thicksteel 200
+titanium 290

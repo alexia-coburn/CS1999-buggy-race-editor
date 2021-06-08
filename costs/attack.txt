@@ -1,0 +1,5 @@
+none 0
+spike 5
+flame 20
+charge 28
+biohazard 30
