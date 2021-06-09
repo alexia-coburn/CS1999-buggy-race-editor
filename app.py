@@ -182,6 +182,13 @@ def summary():
     buggies = dict(zip([column[0] for column in cur.description], cur.fetchone())).items()
     return jsonify({ key: val for key, val in buggies if (val != "" and val is not None) })
 
+#------------------------------------------------------------
+# Route to the poster
+#------------------------------------------------------------
+@app.route('/poster')
+def poster():
+   return render_template('poster.html')
+
 # You shouldn't need to add anything below this!
 if __name__ == '__main__':
     app.run(debug = True, host="0.0.0.0")
