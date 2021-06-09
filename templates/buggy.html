@@ -22,20 +22,60 @@
         <td>Primary Power Units:</td> <td> {{ buggy['power_units'] }} </td>
       </tr>
       <tr>
-        <td>Flag Colour:</td> <td> {{ buggy['flag_color'] }} </td>
-      </tr>
-      <tr>
-        <td>Secondary Flag Colour:</td> <td> {{ buggy['flag_color_secondary'] }} </td>
-      </tr>
-      <tr>
-        <td>Flag Pattern:</td> <td> {{ buggy['flag_pattern'] }} </td>
+        <td colspan="2">
+          Flag Design:
+          <br><br>
+          <canvas id="{{ buggy['id'] }}"></canvas>
+        </td>
       </tr>
       <tr class="no_border">
         <td> <form action="/edit/{{ buggy['id'] }}"> <input type="submit" class="button" value="Edit"> </form></td>
         <td> <form action="/delete/{{ buggy['id'] }}" method="post"> <input type="submit" class="button" value="Delete"> </form> </td>
       </tr>
     </table>
+
+    <script>
+      function draw() {
+        const canvas = document.getElementById("{{ buggy['id'] }}");
+        w = window.innerWidth / 5;
+        h = w * (3/5);
+        canvas.height = h;
+        canvas.width = w;
+
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '{{ buggy['flag_color'] }}';
+        ctx.fillRect(0, 0, w, h);
+
+        if ("{{ buggy['flag_pattern'] }}" == "plain") {
+          // pass
+        } else if ("{{ buggy['flag_pattern'] }}" == "vstripe") {
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect((w/7), 0, w/7, h);
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(3*(w/7), 0, w/7, h);
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(5*(w/7), 0, w/7, h);
+        } else if ("{{ buggy['flag_pattern'] }}" == "hstripe") {
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(0, (h/5), w, h/5);
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(0, 3*(h/5), w, h/5);
+        } else if ("{{ buggy['flag_pattern'] }}" == "dstripe") {
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(0, 0, w, h);
+        } else if ("{{ buggy['flag_pattern'] }}" == "checker") {
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(0, 0, w, h);
+        } else if ("{{ buggy['flag_pattern'] }}" == "spot") {
+          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+          ctx.fillRect(0, 0, w, h);
+        }
+      }
+    </script>
+
   {% endfor %}
+
 
   <p>
     <a href="/" class="button">home</a>
