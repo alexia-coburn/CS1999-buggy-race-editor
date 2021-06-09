@@ -75,13 +75,7 @@
 
               // Checkered
               } else if ("{{ buggy['flag_pattern'] }}" == "checker") {
-
-                //for (var i = 0; i < 5; i++) {
-                //  ctx.fillRect(0, 0, h/6, h/6);
-                //  ctx.translate((h/6) + (h/6), 0);
-                //  ctx.fillRect(0+(h/6), 0+(h/6), h/6, h/6);
-                //  ctx.translate((h/6) + (h/6), 0);
-                //}
+                // Rows 1, 3 and 5
                 for (var i = 0; i < 3; i++) {
                   for (var j = 0; j < 5; j++) {
                     ctx.save();
@@ -91,6 +85,7 @@
                     ctx.restore();
                   }
                 }
+                // Rows 2, 4, and 6
                 for (var i = 0; i < 3; i++) {
                   for (var j = 0; j < 5; j++) {
                     ctx.save();
