@@ -22,10 +22,84 @@
         <td>Primary Power Units:</td> <td> {{ buggy['power_units'] }} </td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td colspan="2"'>
           Flag Design:
           <br><br>
-          <canvas id="{{ buggy['id'] }}"></canvas>
+          <canvas id={{ buggy['id'] }}></canvas>
+          <script>
+              var canvas = document.getElementById({{ buggy['id'] }});
+              w = window.innerWidth / 5;
+              h = w * (3/5);
+              canvas.height = h;
+              canvas.width = w;
+
+              var ctx = canvas.getContext('2d');
+
+              ctx.fillStyle = '{{ buggy['flag_color'] }}';
+              ctx.fillRect(0, 0, w, h);
+
+              // Plain
+              if ("{{ buggy['flag_pattern'] }}" == "plain") {
+                // pass
+
+              // Vertical Stripe
+              } else if ("{{ buggy['flag_pattern'] }}" == "vstripe") {
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}'; // 2nd stripe
+                ctx.fillRect((w/7), 0, w/7, h);
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}'; // 4th Stripe
+                ctx.fillRect(3*(w/7), 0, w/7, h);
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}'; // 6th Stripe
+                ctx.fillRect(5*(w/7), 0, w/7, h);
+
+              // Horizontal Stripe
+              } else if ("{{ buggy['flag_pattern'] }}" == "hstripe") {
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}'; // 2nd stripe
+                ctx.fillRect(0, (h/5), w, h/5);
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}'; // 4th stripe
+                ctx.fillRect(0, 3*(h/5), w, h/5);
+
+              // Diagonal Stripe
+              } else if ("{{ buggy['flag_pattern'] }}" == "dstripe") {
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+                // Middle stripe
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(w/8, 0);
+                ctx.lineTo(w, h-(w/8));
+                ctx.lineTo(w, h);
+                ctx.lineTo(w-(w/8), h);
+                ctx.lineTo(0, 0+(w/8));
+                ctx.closePath();
+                ctx.fill();
+                // Top stripe
+                ctx.beginPath();
+                ctx.moveTo(((h-30)/2 - 25), 0);
+                ctx.lineTo(((h-30)/2 + 25), 0);
+                ctx.lineTo(w, ((h-30)/2 - 25));
+                ctx.lineTo(w, ((h-30)/2 + 25));
+                ctx.closePath();
+                ctx.fill();
+                // Bottom stripe
+                ctx.beginPath();
+                ctx.moveTo(0, ((h-30)/2 + 5));
+                ctx.lineTo(0, ((h-30)/2 + 55));
+                ctx.lineTo(((w-30)/2 - 35), h);
+                ctx.lineTo(((w-30)/2 + 50), h);
+                ctx.closePath();
+                ctx.fill();
+
+              // Checkered
+              } else if ("{{ buggy['flag_pattern'] }}" == "checker") {
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+                ctx.fillRect(0, 0, w, h);
+
+              // Spotted
+              } else if ("{{ buggy['flag_pattern'] }}" == "spot") {
+                ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
+                ctx.fillRect(0, 0, w, h);
+              }
+          </script>
         </td>
       </tr>
       <tr class="no_border">
@@ -34,48 +108,7 @@
       </tr>
     </table>
 
-    <script>
-      function draw() {
-        const canvas = document.getElementById("{{ buggy['id'] }}");
-        w = window.innerWidth / 5;
-        h = w * (3/5);
-        canvas.height = h;
-        canvas.width = w;
-
-        const ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = '{{ buggy['flag_color'] }}';
-        ctx.fillRect(0, 0, w, h);
-
-        if ("{{ buggy['flag_pattern'] }}" == "plain") {
-          // pass
-        } else if ("{{ buggy['flag_pattern'] }}" == "vstripe") {
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect((w/7), 0, w/7, h);
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(3*(w/7), 0, w/7, h);
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(5*(w/7), 0, w/7, h);
-        } else if ("{{ buggy['flag_pattern'] }}" == "hstripe") {
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(0, (h/5), w, h/5);
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(0, 3*(h/5), w, h/5);
-        } else if ("{{ buggy['flag_pattern'] }}" == "dstripe") {
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(0, 0, w, h);
-        } else if ("{{ buggy['flag_pattern'] }}" == "checker") {
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(0, 0, w, h);
-        } else if ("{{ buggy['flag_pattern'] }}" == "spot") {
-          ctx.fillStyle = '{{ buggy['flag_color_secondary'] }}';
-          ctx.fillRect(0, 0, w, h);
-        }
-      }
-    </script>
-
   {% endfor %}
-
 
   <p>
     <a href="/" class="button">home</a>
