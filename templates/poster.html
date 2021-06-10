@@ -14,7 +14,218 @@
   .cs1999-tasks .task h2 {
     border-bottom: 3px solid gray;
   }
+
+  * {box-sizing:border-box}
+
+  .slideshow {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+
+  .mySlides {
+    display: none;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .caption {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  h3 {
+    text-align: center;
+    color: #47eddf;
+  }
+  h2{
+    color: #47eddf;
+  }
+  h2.top{
+    text-align: center;
+    color: #FFFFFF;
+  }
+  p.top {
+    text-align: center;
+  }
+
+  .column {
+    float: left;
+    width: 50%;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 </style>
+
+<h1>
+  Buggy Editor
+</h1>
+
+<div class="slideshow">
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 4</div>
+    <img src="static/menu.gif" style="width:100%">
+    <div class="caption">Main Menu</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 4</div>
+    <img src="static/form.gif" style="width:90%">
+    <div class="caption">Make a Buggy</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 4</div>
+    <img src="static/see_buggies.gif" style="width:90%">
+    <div class="caption">View Buggies</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">4 / 4</div>
+    <img src="static/JSON.gif" style="width:90%">
+    <div class="caption">Generated JSON</div>
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<br><br><br>
+
+<div class="row">
+  <div class="column">
+    <h3>Make your own buggy... </h3>
+    <br><br><br>
+    <p class="top">Simple, easy to use interface</p>
+    <br>
+    <p class="top">Visual representation of flags</p>
+    <br>
+    <p class="top">Buggies safely stored in a database</p>
+  </div>
+  <div class="column">
+    <br><br><br><br><br><br>
+    <p class="top">JSON automatically generated</p>
+    <br>
+    <p class="top">Easy to modify buggies</p>
+    <br>
+    <p class="top">Calculates the cost of your buggy</p>
+    <br><br><br><br>
+    <h3>...and compete in races </h3>
+  </div>
+</div>
+
+<br><br>
+<h2 class="top">Read about the production process below</h2>
+
+<script>
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+  }
+</script>
 
 <!-- see tech note about the poster:
       https://rhul-cs-projects.github.io/CS1999-buggy-race-server/                -->
@@ -34,15 +245,128 @@
 <section class="cs1999-tasks">
 
   <div class="task">
-    <h2>0-GET</h2>
+    <h2>0-GET: Get the source code</h2>
     <p>
-      I forked the repo on GitHub and then used <code>git clone</code> to make a local copy.
+      I forked the repo on GitHub and then, through git bash, used <code>git clone</code> to make a local copy.
     </p>
     <p>
-      Once the repo was on my own machine I was able to commit changes to version control
-      as I went along, and I pushed back up to my GitHub repo at the end of each day.
-      I followed GitHub's instructions and set up a SSH key so I didn't need to enter
-      username and password every time I pushed.
+      Once the repo was on my own machine, I started work on the other tasks. After finishing each task, I would push the changes up to github.
+      I would also push changes up before I task was complete, if I needed to work on it on my laptop instead of my PC. These always had a commit
+      message starting with "WIP", meaning "work in progress".
+    </p>
+  </div>
+
+  <div class="task">
+    <h2>0-RUN: Get the app running and view it in a browser</h2>
+    <p>
+      I initialised the database with <code>py init_db.py</code>, and started the webserver with <code>py app.py</code> in git bash.
+    </p>
+    <p>
+      Before I could do the above though, I had to install the python libraries, with the use of <code>pip install -r requirements.txt</code>.
+      After this, I could initialise the database, and from then on, use <code>py app.py</code> to start the webserver. After it had been started,
+      the webserver could be accessed through a browser using the link "localhost:5000".
+    </p>
+  </div>
+
+  <div class="task">
+    <h2>0-CHANGE: Make a change to a template and see it appear</h2>
+    <p>
+      I changed the title of the buggy editor from "My buggy editor" to "Buggy Editor"
+    </p>
+    <p>
+      In this task, I started to explore the directories in the project. I worked out what file does what, and hence where to change particular things.
+      Following the suggestion in the advice video for 0-Change, I changed the title, refreshed the page in chrome, and watched the change appear.
+    </p>
+  </div>
+
+  <div class="task">
+    <h2>1-ADD Add more data to the form</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>1-VALID Add basic data validation</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>1-STYLE Style your editor just how you like it</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>2-EDIT Edit the record by loading its current values into the form</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>2-FORM Make the form better</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>2-COST Calculate and save the game cost of the buggy</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>2-RULES Add validation according to the game rules</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>3-MULTI Allow different buggies to be created</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>3-DEL Allow buggies to be deleted</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
+    </p>
+  </div>
+  <div class="task">
+    <h2>3-FLAG Display the pennant graphically</h2>
+    <p>
+      <!-- sentence on _how_ you fixed it -->
+    </p>
+    <p>
+      <!-- sentence(s) on anything interesting/incomplete you did -->
     </p>
   </div>
 
