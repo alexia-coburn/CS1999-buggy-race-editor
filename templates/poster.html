@@ -227,20 +227,9 @@
   }
 </script>
 
-<!-- see tech note about the poster:
-      https://rhul-cs-projects.github.io/CS1999-buggy-race-server/                -->
-<!--                                                                              -->
-<!-- anything you want here: make it beautiful! make it appealing! make it clear! -->
-<!-- you can drop images into static/assets if you want... and access them        -->
-<!-- here with <img src="/static/image-filename.png" alt="diagram" />             -->
-<!--                                                                              -->
-<!-- Of course you can edit static/app.css too if you want. It's your webserver,  -->
-<!--                                                                              -->
-<!-- Maybe... delete all these comments too :-)                                   -->
 
+<!-- -------------------------------------------------------------------------- -->
 
-<!-- below this point keep this section tag and paste in a <div> for every        -->
-<!-- task you attempted.                                                          -->
 
 <section class="cs1999-tasks">
 
@@ -251,7 +240,7 @@
     </p>
     <p>
       Once the repo was on my own machine, I started work on the other tasks. After finishing each task, I would push the changes up to github.
-      I would also push changes up before I task was complete, if I needed to work on it on my laptop instead of my PC. These always had a commit
+      I would also push changes up before a task was complete, if I needed to work on it on my laptop instead of my PC. These always had a commit
       message starting with "WIP", meaning "work in progress".
     </p>
   </div>
@@ -259,7 +248,7 @@
   <div class="task">
     <h2>0-RUN: Get the app running and view it in a browser</h2>
     <p>
-      I initialised the database with <code>py init_db.py</code>, and started the webserver with <code>py app.py</code> in git bash.
+      I initialised the database with the command <code>py init_db.py</code>, and started the webserver with <code>py app.py</code> in git bash.
     </p>
     <p>
       Before I could do the above though, I had to install the python libraries, with the use of <code>pip install -r requirements.txt</code>.
@@ -271,7 +260,7 @@
   <div class="task">
     <h2>0-CHANGE: Make a change to a template and see it appear</h2>
     <p>
-      I changed the title of the buggy editor from "My buggy editor" to "Buggy Editor"
+      I changed the title of the buggy editor from "My buggy editor" to "Buggy Editor".
     </p>
     <p>
       In this task, I started to explore the directories in the project. I worked out what file does what, and hence where to change particular things.
@@ -280,93 +269,161 @@
   </div>
 
   <div class="task">
-    <h2>1-ADD Add more data to the form</h2>
+    <h2>1-ADD: Add more data to the form</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      Here, I added primary and secondary flag colours, as well as the flag pattern, as these were already in the database.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
-    </p>
-  </div>
-  <div class="task">
-    <h2>1-VALID Add basic data validation</h2>
-    <p>
-      <!-- sentence on _how_ you fixed it -->
+      In order to do this, I had to add labels and inputs to the form in <code>buggy-form.html</code>, get the form data in the <code>/new</code> route in app.py using
+      <code>variable_name = request.form['variable_name']</code>, then add the newly fetched inputs into the SQL statements. This way the results would
+      be saved in the database. To then display this new data when viewing your buggies, I had to add more rows to the table, and retrieve the new data
+      from the database.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
-    </p>
-  </div>
-  <div class="task">
-    <h2>1-STYLE Style your editor just how you like it</h2>
-    <p>
-      <!-- sentence on _how_ you fixed it -->
-    </p>
-    <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      When I got to adding data that wasn't already in the database, I had to add the identifier, and it's data type to the table to be created in
+      <code>init_db.py</code>, as well as add the variables to the SQL statements and the form. To see these changes, the database had to be
+      deleted and re-initialised (using <code>py init_db.py</code>) so that the database would have these new rows.
     </p>
   </div>
+
   <div class="task">
-    <h2>2-EDIT Edit the record by loading its current values into the form</h2>
+    <h2>1-VALID: Add basic data validation</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      I added an <code>if</code> statement to check that the data received from <code>qty_wheels</code> is a number.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      After taking the input data from the form in <code>/new</code> (in <code>app.py</code>), I wrote an <code>if</code> statement using <code>isdigit()</code> to check that the input was valid.
+      If it was not, I gave an appropriate error message to the msg variable, and returned the user to the page with the form, along with that message.
+      For inputs like colour, I changed the input type from "text" to "color", so that the user can pick a colour in a more user friendly way than
+      typing a hex code or colour name. This also prevents the need for the validation to distinguish between which colour names are allowed in CSS,
+      or whether a valid hex code had been entered.
     </p>
   </div>
+
   <div class="task">
-    <h2>2-FORM Make the form better</h2>
+    <h2>1-STYLE: Style your editor just how you like it</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      In <code>app.css</code>, I changed the hex codes to have a colour scheme that I wanted. I chose grey and light-turquoise.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      I changed the hazard strip on the left hand side to be grey and turquoise. By adding two different shades of grey and turquoise, I created a
+      fade, rather than having two block colours. I also changed the background to grey, and the buttons to a darker grey with black shadow and turquoise
+      text. When you hover over the buttons, they change to black with white text. I also changed the link colour to turquoise. In the form, I changed the
+      length of the input boxes to spread across the entire screen to make it look neater.
     </p>
   </div>
+
   <div class="task">
-    <h2>2-COST Calculate and save the game cost of the buggy</h2>
+    <h2>2-EDIT: Edit the record by loading its current values into the form</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      Using <code>value=</code> inside the input tags in the form allows the text box to be populated with a value.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      In order to allow the text boxes to be populated with data from the database, as opposed to with arbitrary values, I copied the code to
+      <code>/new</code> from <code>/buggy</code> that connects to the database and gets the values from it. This way, I could retrieve the actual
+      stored values and display them in the form.
+    </p>
+    <p>
+      For the <code>select</code> tags, I embedded an <code>if</code> statement in each <code>option</code> tag that worked out if that option was the one
+      currently stored in the database. If it was, then that was the option that was selected by default when viewing that page.
     </p>
   </div>
+
   <div class="task">
-    <h2>2-RULES Add validation according to the game rules</h2>
+    <h2>2-FORM: Make the form better</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      Most of this task (in terms of layout), I had completed in task 1-Style through CSS changes.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      In 1-Style, I had changed the length of the input boxes to fit the screen, which meant they were all on individual lines. On top of this, however,
+      I also added <code>paragraph</code> tags with descriptions of each input to make it clear what the user should enter in each box.
     </p>
   </div>
+
   <div class="task">
-    <h2>3-MULTI Allow different buggies to be created</h2>
+    <h2>2-COST: Calculate and save the game cost of the buggy</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      My solution to this task was to add text files for python to read.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      I considered adding another database table, as I have worked with SQLite before, however, considering that, for example, armour and attack categories
+      both have a "None" option, it would be sensible to put each category into a separate table, which would take a lot of time and SQL. Hence, I
+      opted for text files. These are easy to edit should the costs change, and it is easy to read, store the values in a dictionary, and consequently
+      calculate the buggy cost. I chose to display the cost on the <code>updated.html</code> page, as I could not see a way to calculate the costs without the data
+      from the form, and therefore the form had to be submitted first.
     </p>
   </div>
+
   <div class="task">
-    <h2>3-DEL Allow buggies to be deleted</h2>
+    <h2>2-RULES: Add validation according to the game rules</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      This is implementing more validation on the data, in order to stop a buggy being created that could not be entered into a race.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      By using another <code>if</code> statement in <code>/new</code>, taking the value entered for <code>qty_wheels</code>, and performing modulus of 2 on it,
+      you can tell if a number is odd, as an odd number won't have an answer of 0. This allows another error message to be sent back, along with
+      redirecting the user to <code>buggy-form.html</code>.
+    </p>
+    <p>
+      In order to make sure that the number of tyres is the same as the number of wheels, I did not put the number of tyres in the form - only the
+      tyre type. I then set the number of tyres equal to the number of wheels in <code>/new</code> to prevent the user from being able to mess it up.
     </p>
   </div>
+
   <div class="task">
-    <h2>3-FLAG Display the pennant graphically</h2>
+    <h2>3-MULTI: Allow different buggies to be created</h2>
     <p>
-      <!-- sentence on _how_ you fixed it -->
+      In this task, I added the ability for the user to create new buggies, or edit ones they've already created.
     </p>
     <p>
-      <!-- sentence(s) on anything interesting/incomplete you did -->
+      As the default SQL statement was an <code>UPDATE</code> statement, and task 2-Edit meant that the form had the current values, then this
+      is what should happen when you edit a buggy. I added an edit button under the table in <code>buggy.html</code> that leads through
+      a <code>/edit/id</code> route, then directs the user to <code>buggy-form.html</code>, after selecting only the buggy in the table with the
+      buggy ID that was sent.
+    </p>
+    <p>
+      Then, to actually add new buggies, I used an <code>INSERT INTO</code> SQL statement. When making a new buggy, you go through the
+      <code>/new</code> route, where, when rendering the template <code>buggy-form.html</code>, the buggy is set to "None", meaning there are no
+      buggies selected, and no default values to populate the form with. When you go through <code>/edit</code>, <code>buggy-form.html</code> is rendered with the selected
+      buggy, and so the current values are shown. Then in <code>/new</code>, if there is a known buggy ID, the <code>UPDATE</code> statement is executed,
+      otherwise the <code>INSERT INTO</code> statement is executed.
+    </p>
+  </div>
+
+  <div class="task">
+    <h2>3-DEL: Allow buggies to be deleted</h2>
+    <p>
+      Here, I added a second button next to the edit button in <code>buggy.html</code> that read "Delete".
+    </p>
+    <p>
+      This button lead to the <code>/delete/id</code> route, which executed an SQL <code>DELETE</code> statement, deleting the buggy from the database
+      with the ID that was sent. In order to send this as a <code>POST</code> request, however, the delete button had to be inside a form. Otherwise
+      the request would have been sent as a <code>GET</code> request.
+    </p>
+    <p>
+      Defining the <code>/delete</code> route simply as <code>POST</code> method without the delete button being in a form would create this error: "This method
+      is not allowed for the requested URL", as it would still be trying to send the request as a <code>GET</code> request, which hadn't been defined.
+    </p>
+  </div>
+
+  <div class="task">
+    <h2>3-FLAG: Display the pennant graphically</h2>
+    <p>
+      For this task, I opted to use a javascript canvas, embedded with the <code>script</code> tags.
+    </p>
+    <p>
+      I put the graphical flag representation in <code>buggy.html</code>, as it made sense to view it along with the other data for the buggies that
+      had been created. I considered having the flag displayed as it was being created, but ran into the same problem as with 2-Cost, where I could
+      not display the flag without having the hex codes for the colours that the user had chosen, which required the form to have been submitted.
+    </p>
+    <p>
+      To complete the graphical representation, I put a canvas at the bottom of the table, so it would be repeated for each buggy. Then, using
+      <code>script</code> tags, I drew shapes on the canvas, using divisions of the height and width as opposed to pixel numbers, to allow the canvas to work on different sized
+      displays. I filled the background with the primary colour, and then used the secondary colour to draw the shapes. The shapes I drew depended
+      on which pattern had been chosen, and so an <code>if</code> statement determined this. I found the checkered flag took a long time to work out the
+      mechanics with the <code>for</code> loop and translations of a single square. I also initially had an issue, because I had defined the canvas as a constant
+      (<code>const</code>), which meant it would only display one flag if there were multiple buggies. This was fixed by defining it as a variable
+      (<code>var</code>).
     </p>
   </div>
 

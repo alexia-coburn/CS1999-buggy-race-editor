@@ -79,6 +79,9 @@ def create_buggy():
             return render_template('buggy-form.html', buggy = record, msg = msg)
         power_type = request.form['power_type']
         power_units = request.form['power_units']
+        if not power_units.isdigit():
+            msg = f"Error: {power_units} is not a number"
+            return render_template('buggy-form.html', buggy = record, msg = msg)
         power_cost = power_cost_comparison(power_type, power_units)
         flag_color = request.form['flag_color']
         flag_color_secondary = request.form['flag_color_secondary']
